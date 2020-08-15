@@ -17,18 +17,7 @@ namespace rzeczuchyTasks.ViewModel
         public MainViewModel()
         {
             data = new DataReaderWriter();
-
-            if (IsInDesignMode())
-            {
-                toDoList = new List<ToDo>()
-                {
-                    new ToDo("example todo", false),
-                };
-            }
-            else
-            {
-                toDoList = data.LoadToDos();
-            }
+            toDoList = data.LoadToDos();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -46,11 +35,6 @@ namespace rzeczuchyTasks.ViewModel
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        private bool IsInDesignMode()
-        {
-            return DesignerProperties.GetIsInDesignMode(new DependencyObject());
         }
     }
 }

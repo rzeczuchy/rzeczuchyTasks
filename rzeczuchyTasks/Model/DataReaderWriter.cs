@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace rzeczuchyTasks.Model
 {
-    class DataReaderWriter
+    public class DataReaderWriter
     {
         private const string Filepath = "todos.xml";
 

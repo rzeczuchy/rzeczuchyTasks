@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace rzeczuchyTasks.Model
 {
-    class ToDo
+    public class ToDo
     {
         public const int MaxNameLength = 50;
 
