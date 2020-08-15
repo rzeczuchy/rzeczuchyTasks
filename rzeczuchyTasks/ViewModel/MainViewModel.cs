@@ -5,12 +5,43 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using rzeczuchyTasks.Model;
 
 namespace rzeczuchyTasks.ViewModel
 {
     class MainViewModel : INotifyPropertyChanged
     {
+        private readonly DataReaderWriter data;
+        private List<ToDo> toDoList;
+
+        public MainViewModel()
+        {
+            data = new DataReaderWriter();
+
+            if (IsInDesignMode())
+            {
+                toDoList = new List<ToDo>()
+                {
+                    new ToDo("example todo", false),
+                };
+            }
+            else
+            {
+                toDoList = data.LoadToDos();
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public List<ToDo> ToDoList
+        {
+            get { return toDoList; }
+            set
+            {
+                toDoList = value;
+                OnPropertyChanged("ToDoList");
+            }
+        }
 
         private void OnPropertyChanged(string propertyName)
         {
