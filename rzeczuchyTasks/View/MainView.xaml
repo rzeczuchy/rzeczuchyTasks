@@ -44,13 +44,16 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
+                        <Label Content="{Binding Id}"
+                               Grid.Column="0"/>
                         <CheckBox IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"
-                                  Grid.Column="0"/>
+                                  Grid.Column="1"/>
                         <TextBox Text="{Binding Label, UpdateSourceTrigger=PropertyChanged}"
-                                 Grid.Column="1"/>
+                                 Grid.Column="2"/>
                         <Button Content="x"
-                                Grid.Column="2"/>
+                                Grid.Column="3"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

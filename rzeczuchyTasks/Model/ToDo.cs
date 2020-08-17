@@ -10,17 +10,18 @@ namespace rzeczuchyTasks.Model
     public class ToDo : INotifyPropertyChanged
     {
         public const int MaxNameLength = 50;
-
+        
         private string label;
         private bool isChecked;
 
-        public ToDo(string label, bool isChecked)
+        public ToDo(int id, string label, bool isChecked)
         {
+            Id = id;
             this.label = label.Length > MaxNameLength ? label.Substring(0, MaxNameLength) : label;
             this.isChecked = isChecked;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public int Id { get; }
         
         public string Label
         {
@@ -39,6 +40,8 @@ namespace rzeczuchyTasks.Model
                 OnPropertyChanged("IsChecked");
             }
         }
+        
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string propertyName)
         {

@@ -60,9 +60,9 @@ namespace rzeczuchyTasks.Model
         private ToDo LoadToDo(XmlReader reader)
         {
             string label = reader["Label"];
-            if (label != null && bool.TryParse(reader["Done"], out bool done))
+            if (int.TryParse(reader["Id"], out int id) && label != null && bool.TryParse(reader["Done"], out bool done))
             {
-                return new ToDo(label, done);
+                return new ToDo(id, label, done);
             }
             return null;
         }
@@ -72,6 +72,7 @@ namespace rzeczuchyTasks.Model
             if (todo != null && todo.Label != null)
             {
                 writer.WriteStartElement("ToDo");
+                writer.WriteAttributeString ("Id", todo.Id.ToString());
                 writer.WriteAttributeString("Label", todo.Label);
                 writer.WriteAttributeString("Done", todo.IsChecked.ToString());
                 writer.WriteEndElement();
@@ -82,12 +83,22 @@ namespace rzeczuchyTasks.Model
         {
             if (!File.Exists(Filepath))
             {
-                var placeholders = new List<ToDo>()
-                {
-                    new ToDo("This is an unchecked todo", false),
-                    new ToDo("This is a checked todo", true),
-                };
+                var placeholders = new List<ToDo>();
+                placeholders.Add(new ToDo(NewToDoId(placeholders), "This is an unchecked todo", false));
+                placeholders.Add(new ToDo(NewToDoId(placeholders), "This is a checked todo", true));
                 SaveToDos(placeholders);
+            }
+        }
+
+        public static int NewToDoId(List<ToDo> list)
+        {
+            if (list.Any())
+            {
+                return list.Max(i => i.Id) + 1;
+            }
+            else
+            {
+                return 0;
             }
         }
     }

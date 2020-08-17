@@ -42,7 +42,8 @@ namespace rzeczuchyTasks.ViewModel
 
         public void AddToDo()
         {
-            ToDoList.Add(new ToDo(NewLabel, false));
+            ToDoList.Add(new ToDo(DataReaderWriter.NewToDoId(ToDoList.ToList()), NewLabel, false));
+            data.SaveToDos(ToDoList.ToList());
         }
 
         private void OnPropertyChanged(string propertyName)
