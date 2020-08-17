@@ -19,7 +19,8 @@ namespace rzeczuchyTasks.Model
 
         public void SaveToDos(List<ToDo> toDos)
         {
-            using (XmlWriter writer = XmlWriter.Create(Filepath))
+            XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
+            using (XmlWriter writer = XmlWriter.Create(Filepath, settings))
             {
                 writer.WriteStartDocument();
                 writer.WriteStartElement("ToDoList");
