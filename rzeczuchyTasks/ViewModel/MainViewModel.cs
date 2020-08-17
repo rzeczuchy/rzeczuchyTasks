@@ -8,8 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
 using rzeczuchyTasks.Model;
+using rzeczuchyTasks.ViewModel.Commands;
 
 namespace rzeczuchyTasks.ViewModel
 {
@@ -48,36 +48,6 @@ namespace rzeczuchyTasks.ViewModel
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
-
-    public class AddToDoCommand : ICommand
-    {
-        public AddToDoCommand(MainViewModel viewModel)
-        {
-            ViewModel = viewModel;
-        }
-
-        public MainViewModel ViewModel { get; set; }
-
-        public event EventHandler CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
-
-        public bool CanExecute(object parameter)
-        {
-            if (parameter is string label && !string.IsNullOrWhiteSpace(label))
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public void Execute(object parameter)
-        {
-            ViewModel.AddToDo();
         }
     }
 }
