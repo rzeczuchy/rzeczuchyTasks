@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using rzeczuchyTasks.ViewModel;
 
 namespace rzeczuchyTasks.Model
 {
@@ -14,8 +15,11 @@ namespace rzeczuchyTasks.Model
         private string label;
         private bool isChecked;
 
-        public ToDo(int id, string label, bool isChecked)
+        private readonly MainViewModel parent;
+
+        public ToDo(int id, string label, bool isChecked, MainViewModel parent)
         {
+            this.parent = parent;
             Id = id;
             this.label = label.Length > MaxNameLength ? label.Substring(0, MaxNameLength) : label;
             this.isChecked = isChecked;
@@ -29,6 +33,7 @@ namespace rzeczuchyTasks.Model
             set {
                 label = value;
                 OnPropertyChanged("Label");
+                parent.SaveToDos();
             }
         }
 
@@ -38,6 +43,7 @@ namespace rzeczuchyTasks.Model
             set {
                 isChecked = value;
                 OnPropertyChanged("IsChecked");
+                parent.SaveToDos();
             }
         }
         

@@ -20,13 +20,15 @@ namespace rzeczuchyTasks.ViewModel
 
         public MainViewModel()
         {
-            data = new DataReaderWriter();
+            data = new DataReaderWriter(this);
             ToDoList = new ObservableCollection<ToDo>(data.LoadToDos());
             AddToDoCommand = new AddToDoCommand(this);
+            DeleteToDoCommand = new DeleteToDoCommand(this);
         }
 
         public ObservableCollection<ToDo> ToDoList { get; }
         public AddToDoCommand AddToDoCommand { get; set; }
+        public DeleteToDoCommand DeleteToDoCommand { get; set; }
 
         public string NewLabel
         {
@@ -42,9 +44,23 @@ namespace rzeczuchyTasks.ViewModel
 
         public void AddToDo()
         {
-            ToDoList.Add(new ToDo(DataReaderWriter.NewToDoId(ToDoList.ToList()), NewLabel, false));
-            data.SaveToDos(ToDoList.ToList());
+            ToDoList.Add(new ToDo(DataReaderWriter.NewToDoId(ToDoList.ToList()), NewLabel, false, this));
+            SaveToDos();
             NewLabel = string.Empty;
+        }
+
+        public void DeleteToDo(object parameter)
+        {
+            if (parameter is ToDo todo)
+            {
+                ToDoList.Remove(todo);
+                SaveToDos();
+            }
+        }
+
+        public void SaveToDos()
+        {
+            data.SaveToDos(ToDoList.ToList());
         }
 
         private void OnPropertyChanged(string propertyName)

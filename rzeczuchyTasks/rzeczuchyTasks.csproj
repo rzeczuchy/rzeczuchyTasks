@@ -65,6 +65,7 @@
     </Compile>
     <Compile Include="Model\DataReaderWriter.cs" />
     <Compile Include="Model\ToDo.cs" />
+    <Compile Include="ViewModel\Commands\DeleteToDoCommand.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\Commands\AddToDoCommand.cs" />
     <Compile Include="View\MainView.xaml.cs">

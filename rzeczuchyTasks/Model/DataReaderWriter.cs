@@ -5,15 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Xml;
+using rzeczuchyTasks.ViewModel;
 
 namespace rzeczuchyTasks.Model
 {
     public class DataReaderWriter
     {
         private const string Filepath = "todos.xml";
+        private readonly MainViewModel viewModel;
 
-        public DataReaderWriter()
+        public DataReaderWriter(MainViewModel viewModel)
         {
+            this.viewModel = viewModel;
             CreatePlaceholderToDos();
         }
 
@@ -63,7 +66,7 @@ namespace rzeczuchyTasks.Model
             string label = reader["Label"];
             if (int.TryParse(reader["Id"], out int id) && label != null && bool.TryParse(reader["Done"], out bool done))
             {
-                return new ToDo(id, label, done);
+                return new ToDo(id, label, done, viewModel);
             }
             return null;
         }
@@ -85,8 +88,8 @@ namespace rzeczuchyTasks.Model
             if (!File.Exists(Filepath))
             {
                 var placeholders = new List<ToDo>();
-                placeholders.Add(new ToDo(NewToDoId(placeholders), "This is an unchecked todo", false));
-                placeholders.Add(new ToDo(NewToDoId(placeholders), "This is a checked todo", true));
+                placeholders.Add(new ToDo(NewToDoId(placeholders), "This is an unchecked todo", false, viewModel));
+                placeholders.Add(new ToDo(NewToDoId(placeholders), "This is a checked todo", true, viewModel));
                 SaveToDos(placeholders);
             }
         }
