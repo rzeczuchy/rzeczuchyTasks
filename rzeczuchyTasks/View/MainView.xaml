@@ -10,10 +10,236 @@
         Title="MainWindow"
         Height="450"
         Width="600"
-        ResizeMode="CanMinimize">
+        ResizeMode="CanMinimize"
+        FocusManager.FocusedElement="{Binding ElementName=NewLabelTextBox}">
     <Window.Resources>
         <viewModel:MainViewModel x:Key="viewModel"/>
+        
+        <!--Colors-->
+        <Color x:Key="LightColor">#ffffff</Color>
+        <Color x:Key="DarkColor">#333333</Color>
+        <Color x:Key="PrimaryColor">#408caa</Color>
+        <Color x:Key="HightlightColor">#66a3bb</Color>
+        
+        <!--Brushes-->
+        <SolidColorBrush x:Key="LightBrush" Color="{StaticResource LightColor}"/>
+        <SolidColorBrush x:Key="DarkBrush" Color="{StaticResource DarkColor}"/>
+        <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
+        <SolidColorBrush x:Key="HighlightBrush" Color="{StaticResource HightlightColor}"/>
+
+        <!--Default styles-->
+        <Style TargetType="Control" x:Key="DefaultStyle">
+            <Setter Property="Background" Value="{StaticResource LightBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource DarkBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource DarkBrush}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="600"/>
+            <Setter Property="Height" Value="32"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+        
+        <!--Base button-->
+        <Style TargetType="Button"
+               x:Key="BaseButton"
+               BasedOn="{StaticResource DefaultStyle}">
+            <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource LightBrush}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource HighlightBrush}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--Delete button-->
+        <Style TargetType="Button" x:Key="DeleteButtonStyle" BasedOn="{StaticResource BaseButton}">
+            <Setter Property="Content" Value="X"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="Margin" Value="5, 0"/>
+        </Style>
+
+        <!--Checkbox-->
+        <Style TargetType="CheckBox">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5, 0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type CheckBox}">
+                        <BulletDecorator Background="Transparent">
+                            <BulletDecorator.Bullet>
+                                <Border x:Name="Border"
+                                        Width="20"
+                                        Height="20"
+                                        CornerRadius="5"
+                                        BorderThickness="1"
+                                        BorderBrush="{StaticResource DarkBrush}">
+                                    <Grid>
+                                        <Path Visibility="Collapsed"
+                                              Width="12"
+                                              Height="12"
+                                              x:Name="CheckMark"
+                                              Data="M0,4 5,12 12,0 4,7"
+                                              Fill="{StaticResource DarkBrush}">
+                                        </Path>
+                                    </Grid>
+                                </Border>
+                            </BulletDecorator.Bullet>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CheckStates">
+                                    <VisualState x:Name="Checked">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)"
+                                                                           Storyboard.TargetName="CheckMark">
+                                                <DiscreteObjectKeyFrame KeyTime="0"
+                                                                        Value="{x:Static Visibility.Visible}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unchecked"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </BulletDecorator>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <!--Grid-->
+        <Style TargetType="Grid">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+
+        <!--List view-->
+        <Style TargetType="ListView">
+            <Setter Property="Background" Value="{StaticResource LightBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+            <Setter Property="Margin" Value="0, 5, 0, 0"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+
+        <!--List view item-->
+        <Style TargetType="ListViewItem" BasedOn="{StaticResource DefaultStyle}">
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Margin" Value="3, 3"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Left"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--Text block-->
+        <Style TargetType="TextBlock" x:Key="DefaultTextBlockStyle">
+            <Setter Property="Margin" Value="5, 0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <!--Text box-->
+        <Style TargetType="TextBox" BasedOn="{StaticResource DefaultStyle}">
+            <Setter Property="CaretBrush" Value="{StaticResource DarkBrush}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        
+        <!--New label text box-->
+        <Style TargetType="TextBox" x:Key="NewLabelTextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="0, 0, 5, 0"/>
+        </Style>
+
+        <!--Scrollbar-->
+        <Style TargetType="{x:Type Thumb}" x:Key="ScrollBarThumbStyle">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Border Background="{TemplateBinding Background}"
+                                Width="8"
+                                CornerRadius="3"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <ControlTemplate x:Key="VerticalScrollBar" TargetType="{x:Type ScrollBar}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Track x:Name="PART_Track"
+                       IsDirectionReversed="True">
+                    <Track.Thumb>
+                        <Thumb x:Name="VerticalThumb"
+                               Style="{StaticResource ScrollBarThumbStyle}">
+                            <Thumb.Background>
+                                <SolidColorBrush Color="{StaticResource PrimaryColor}"/>
+                            </Thumb.Background>
+                        </Thumb>
+                    </Track.Thumb>
+                </Track>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="MouseStates">
+                        <VisualState x:Name="Normal"/>
+                        <VisualState x:Name="MouseOver">
+                            <Storyboard>
+                                <Storyboard>
+                                    <ColorAnimationUsingKeyFrames Storyboard.TargetName="VerticalThumb" 
+                                                              Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                        <LinearColorKeyFrame KeyTime="0"
+                                                             Value="{StaticResource HightlightColor}"/>
+                                    </ColorAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </Storyboard>
+                        </VisualState>
+                        <VisualState x:Name="Pressed"/>
+                        <VisualState x:Name="Disabled"/>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </Grid>
+        </ControlTemplate>
+
+        <Style TargetType="{x:Type ScrollBar}">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Style.Triggers>
+                <Trigger Property="Orientation" Value="Vertical">
+                    <Setter Property="Width" Value="15"/>
+                    <Setter Property="Height" Value="Auto"/>
+                    <Setter Property="Margin" Value="0, 3"/>
+                    <Setter Property="Template" Value="{StaticResource VerticalScrollBar}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
+    
     <Grid DataContext="{StaticResource viewModel}"
           SnapsToDevicePixels="True">
         <Grid.ColumnDefinitions>
@@ -21,15 +247,18 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="7*"/>
         </Grid.RowDefinitions>
-        <TextBox Text="{Binding NewLabel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        <TextBox Name="NewLabelTextBox"
+                 Style="{StaticResource NewLabelTextBox}"
+                 Text="{Binding NewLabel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Grid.Column="0"
                  Grid.Row="0"/>
         <Button Content="ADD"
                 Command="{Binding AddToDoCommand}"
                 CommandParameter="{Binding NewLabel}"
+                Style="{StaticResource BaseButton}"
                 Grid.Column="1"
                 Grid.Row="0"/>
         <ListView ItemsSource="{Binding ToDoList}"
@@ -45,18 +274,15 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Content="{Binding Id}"
-                               Grid.Column="0"/>
-                        <CheckBox IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"
-                                  Grid.Column="1"/>
-                        <TextBox Text="{Binding Label, UpdateSourceTrigger=PropertyChanged}"
-                                 Grid.Column="2"/>
-                        <Button Content="x"
+                        <Button Style="{StaticResource DeleteButtonStyle}"
                                 Command="{Binding Source={StaticResource viewModel}, Path=DeleteToDoCommand}"
                                 CommandParameter="{Binding}"
-                                Grid.Column="3"/>
+                                Grid.Column="0"/>
+                        <TextBox Text="{Binding Label, UpdateSourceTrigger=PropertyChanged}"
+                                 Grid.Column="1"/>
+                        <CheckBox IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"
+                                  Grid.Column="2"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
