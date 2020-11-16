@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rzeczuchyTasks", "rzeczuchyTasks\rzeczuchyTasks.csproj", "{21088D83-DCD0-44EF-8BF7-A1DA59F91188}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rzeczuchyTasks.UnitTests", "rzeczuchyTask.UnitTests\rzeczuchyTasks.UnitTests.csproj", "{2D30564E-0B8A-48E8-A0D8-DA4B789B1635}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rzeczuchyTasks.UnitTests", "rzeczuchyTasks.UnitTests\rzeczuchyTasks.UnitTests.csproj", "{2D30564E-0B8A-48E8-A0D8-DA4B789B1635}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
