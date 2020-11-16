@@ -7,7 +7,7 @@
         xmlns:model="clr-namespace:rzeczuchyTasks.Model"
         xmlns:viewModel="clr-namespace:rzeczuchyTasks.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow"
+        Title="Tasks"
         Height="450"
         Width="600"
         ResizeMode="CanMinimize"
