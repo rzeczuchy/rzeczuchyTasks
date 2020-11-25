@@ -39,7 +39,7 @@ namespace rzeczuchyTasks.ViewModel
                 OnPropertyChanged("NewLabel");
             }
         }
-        
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void AddToDo()

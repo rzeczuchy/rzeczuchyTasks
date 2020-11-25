@@ -76,7 +76,7 @@ namespace rzeczuchyTasks.Model
             if (todo != null && todo.Label != null)
             {
                 writer.WriteStartElement("ToDo");
-                writer.WriteAttributeString ("Id", todo.Id.ToString());
+                writer.WriteAttributeString("Id", todo.Id.ToString());
                 writer.WriteAttributeString("Label", todo.Label);
                 writer.WriteAttributeString("Done", todo.IsChecked.ToString());
                 writer.WriteEndElement();
