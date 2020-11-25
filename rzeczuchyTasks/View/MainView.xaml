@@ -14,13 +14,13 @@
         FocusManager.FocusedElement="{Binding ElementName=NewLabelTextBox}">
     <Window.Resources>
         <viewModel:MainViewModel x:Key="viewModel"/>
-        
+
         <!--Colors-->
         <Color x:Key="LightColor">#ffffff</Color>
         <Color x:Key="DarkColor">#333333</Color>
         <Color x:Key="PrimaryColor">#408caa</Color>
         <Color x:Key="HightlightColor">#66a3bb</Color>
-        
+
         <!--Brushes-->
         <SolidColorBrush x:Key="LightBrush" Color="{StaticResource LightColor}"/>
         <SolidColorBrush x:Key="DarkBrush" Color="{StaticResource DarkColor}"/>
@@ -43,7 +43,7 @@
                 </Style>
             </Style.Resources>
         </Style>
-        
+
         <!--Base button-->
         <Style TargetType="Button"
                x:Key="BaseButton"
@@ -120,7 +120,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <!--Grid-->
         <Style TargetType="Grid">
             <Setter Property="Margin" Value="5"/>
@@ -166,7 +166,7 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
-        
+
         <!--New label text box-->
         <Style TargetType="TextBox" x:Key="NewLabelTextBox" BasedOn="{StaticResource {x:Type TextBox}}">
             <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
@@ -239,7 +239,7 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    
+
     <Grid DataContext="{StaticResource viewModel}"
           SnapsToDevicePixels="True">
         <Grid.ColumnDefinitions>
