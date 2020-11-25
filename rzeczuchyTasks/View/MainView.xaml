@@ -254,7 +254,13 @@
                  Style="{StaticResource NewLabelTextBox}"
                  Text="{Binding NewLabel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Grid.Column="0"
-                 Grid.Row="0"/>
+                 Grid.Row="0">
+            <TextBox.InputBindings>
+                <KeyBinding Key="Return"
+                    Command="{Binding Path=AddToDoCommand}"
+                    CommandParameter="{Binding NewLabel}" />
+            </TextBox.InputBindings>
+        </TextBox>
         <Button Content="ADD"
                 Command="{Binding AddToDoCommand}"
                 CommandParameter="{Binding NewLabel}"
